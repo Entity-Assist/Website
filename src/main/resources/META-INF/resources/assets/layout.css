@@ -1,0 +1,207 @@
+@layer wa-utils {
+    :root {
+        /* max-width for fixed width app-based pages
+         * We round() these to avoid obscure component rendering bugs caused by widths with fractional pixels */
+        --content-width-l: round(up, 132ch, 1px);
+        --content-width-m: round(up, 110ch, 1px);
+        --content-width-s: round(up, 80ch, 1px);
+        --content-width-xs: round(up, 50ch, 1px);
+        --content-flow-spacing: 8ch;
+        --content-padding-inline: var(--wa-space-xl);
+
+        --line-length-xs: 30ch;
+        --line-length-s: 45ch;
+        --line-length-m: 66ch;
+        --line-length-l: 77ch;
+        --line-length-xl: 90ch;
+        --line-length-none: none;
+
+        --brand-jwebmp-green: #10b981;
+        --brand-entity-assist-blue: #418fde;
+        --brand-activity-master-purple: #7c3aed;
+        --brand-guicedee-pink: var(--wa-color-brand);
+
+        --wa-color-brand: var(--brand-entity-assist-blue);
+
+        /* Product nav/drawer fill-quiet (light); .wa-dark overrides for dark */
+        --nav-products-fill-quiet-jwebmp: color-mix(in oklab, var(--brand-jwebmp-green), white 55%);
+        --nav-products-fill-quiet-entity-assist: color-mix(in oklab, var(--brand-entity-assist-blue), white 55%);
+        --nav-products-fill-quiet-activity-master: color-mix(in oklab, var(--brand-activity-master-purple), white 55%);
+        --nav-products-fill-quiet-guicedee: color-mix(in oklab, var(--brand-guicedee-pink), white 55%);
+    }
+
+    .wa-dark {
+        --nav-products-fill-quiet-jwebmp: color-mix(in oklab, var(--brand-jwebmp-green), black 65%);
+        --nav-products-fill-quiet-entity-assist: color-mix(in oklab, var(--brand-entity-assist-blue), black 65%);
+        --nav-products-fill-quiet-activity-master: color-mix(in oklab, var(--brand-activity-master-purple), black 65%);
+        --nav-products-fill-quiet-guicedee: color-mix(in oklab, var(--brand-guicedee-pink), black 65%);
+    }
+
+    /* #region layout utilities */
+    .content-container {
+        margin-inline: auto;
+        max-width: var(--max-width, var(--content-width-l));
+        padding-inline: var(--content-padding-inline);
+    }
+    /* #endregion */
+
+    /* #region Text utilities */
+    .text-truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* line-length */
+    .line-length {
+        max-width: var(--line-length, none);
+    }
+
+    .line-length-xs {
+        --line-length: var(--line-length-xs);
+    }
+    .line-length-s {
+        --line-length: var(--line-length-s);
+    }
+    .line-length-m {
+        --line-length: var(--line-length-m);
+    }
+    .line-length-l {
+        --line-length: var(--line-length-l);
+    }
+    .line-length-xl {
+        --line-length: var(--line-length-xl);
+    }
+    .line-length-none {
+        --line-length: none;
+    }
+    /* #endregion */
+
+    /* disable animation for users who have reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+        .banner-ba-kickstarter .banner-icon {
+            animation: none;
+        }
+    }
+}
+
+/* #region hero banner */
+.hero-banner {
+    text-align: center;
+    align-items: center;
+    padding-block: 0 var(--wa-spacing-3x-large, 4rem);
+    padding-inline: var(--wa-spacing-large, 1.5rem);
+    border-radius: 0;
+    margin-inline: calc(-1 * var(--wa-spacing-x-large, 2rem));
+    background:
+        radial-gradient(
+            ellipse 90% 80% at 50% 100%,
+            color-mix(in oklab, var(--wa-color-brand-normal, var(--wa-color-brand)), transparent 55%),
+            transparent
+        );
+}
+
+.hero-eyebrow {
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--wa-color-brand-normal, var(--wa-color-brand));
+}
+
+.hero-heading {
+    max-width: 20ch;
+    line-height: 1.1;
+}
+
+.hero-subtitle {
+    max-width: var(--line-length-m, 66ch);
+}
+
+.hero-tags {
+    justify-content: center;
+}
+
+.hero-ctas {
+    justify-content: center;
+    padding-block-start: var(--wa-spacing-small, 0.5rem);
+}
+
+.wa-dark .hero-banner {
+    background:
+        radial-gradient(
+            ellipse 90% 80% at 50% 100%,
+            color-mix(in oklab, var(--wa-color-brand-normal, var(--wa-color-brand)), transparent 65%),
+            transparent
+        );
+}
+/* #endregion */
+
+/* #region content sections */
+.section-divider {
+    --color: color-mix(in oklab, var(--wa-color-brand-normal, var(--wa-color-brand)), transparent 70%);
+}
+
+.content-section {
+    padding-block-start: 0;
+    position: relative;
+    isolation: isolate;
+}
+
+.content-section::before {
+    content: '';
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline: calc(-1 * var(--wa-spacing-x-large, 2rem));
+    height: 20rem;
+    pointer-events: none;
+    z-index: -1;
+    background:
+        radial-gradient(
+            ellipse 80% 100% at 50% 0%,
+            color-mix(in oklab, var(--wa-color-brand-normal, var(--wa-color-brand)), transparent 75%),
+            transparent
+        );
+}
+
+.wa-dark .content-section::before {
+    background:
+        radial-gradient(
+            ellipse 80% 100% at 50% 0%,
+            color-mix(in oklab, var(--wa-color-brand-normal, var(--wa-color-brand)), transparent 85%),
+            transparent
+        );
+}
+/* #endregion */
+
+@layer wa-utils {
+/* #region CTA section */
+.cta-section {
+    text-align: center;
+    align-items: center;
+    padding: var(--wa-spacing-3x-large, 4rem) var(--wa-spacing-large, 1.5rem);
+    border-radius: var(--wa-border-radius-l, 0.75rem);
+    background:
+        radial-gradient(
+            ellipse 80% 70% at 50% 0%,
+            color-mix(in oklab, var(--wa-color-brand-normal, var(--wa-color-brand)), transparent 65%),
+            transparent
+        );
+}
+
+.cta-section .section-divider {
+    display: none;
+}
+
+.cta-section::before {
+    display: none;
+}
+
+.wa-dark .cta-section {
+    background:
+        radial-gradient(
+            ellipse 80% 70% at 50% 0%,
+            color-mix(in oklab, var(--wa-color-brand-normal, var(--wa-color-brand)), transparent 78%),
+            transparent
+        );
+}
+/* #endregion */
+}

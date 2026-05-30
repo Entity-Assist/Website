@@ -1,0 +1,446 @@
+@layer wa-utils {
+
+/* #region ngx-markdown clipboard */
+.markdown-clipboard-toolbar {
+    opacity: 0;
+    transition: opacity var(--wa-transition-normal, 150ms) var(--wa-transition-easing, ease);
+    z-index: 1;
+}
+
+/* Show on hover of the pre wrapper */
+.markdown-clipboard-toolbar.hover,
+*:hover > .markdown-clipboard-toolbar {
+    opacity: 1;
+}
+
+.markdown-clipboard-button {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* Hide the text ("Copy" / "Copied"); icon is shown via ::before */
+    font-size: 0;
+    line-height: 0;
+    padding: 0.35em;
+    color: var(--wa-color-text-quiet, #b7bcbf);
+    background: var(--wa-color-surface-raised, rgba(255, 255, 255, 0.08));
+    border: var(--wa-border-width-s, 1px) solid var(--wa-color-neutral-border-quiet, rgba(255, 255, 255, 0.12));
+    border-radius: var(--wa-border-radius-s, 4px);
+    cursor: pointer;
+    transition: color var(--wa-transition-normal, 150ms), background var(--wa-transition-normal, 150ms),
+    border-color var(--wa-transition-normal, 150ms);
+}
+
+/* Icon via mask-image so it inherits color from currentColor */
+.markdown-clipboard-button::before {
+    content: "";
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    background-color: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16l140.1 0L400 115.9V320c0 8.8-7.2 16-16 16zM192 384H384c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H256c35.3 0 64-28.7 64-64V416H272v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16h32V128H64z'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M384 336H192c-8.8 0-16-7.2-16-16V64c0-8.8 7.2-16 16-16l140.1 0L400 115.9V320c0 8.8-7.2 16-16 16zM192 384H384c35.3 0 64-28.7 64-64V115.9c0-12.7-5.1-24.9-14.1-33.9L366.1 14.1c-9-9-21.2-14.1-33.9-14.1H192c-35.3 0-64 28.7-64 64V320c0 35.3 28.7 64 64 64zM64 128c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H256c35.3 0 64-28.7 64-64V416H272v32c0 8.8-7.2 16-16 16H64c-8.8 0-16-7.2-16-16V192c0-8.8 7.2-16 16-16h32V128H64z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Swap to check icon when copied */
+.markdown-clipboard-button.copied::before {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z'/%3E%3C/svg%3E");
+}
+
+.markdown-clipboard-button:hover {
+    color: var(--wa-color-text-normal, #e4e6e6);
+    background: var(--wa-color-neutral-fill-quiet-hover, rgba(255, 255, 255, 0.12));
+    border-color: var(--wa-color-neutral-border, rgba(255, 255, 255, 0.2));
+}
+
+/*.markdown-clipboard-button.copied {
+    color: var(--wa-color-success-text, #3ece90);
+    border-color: var(--wa-color-success-border, #3ece90);
+}*/
+/* #endregion */
+
+/* #region code blocks */
+.code-block {
+    background: var(--wa-color-surface-raised);
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.code-block code {
+    margin: 0;
+    padding: 0;
+    background: var(--wa-color-surface-raised);
+    border: none;
+    color: var(--wa-color-neutral-800);
+}
+
+.code-block pre {
+    margin: 0;
+    padding: 0;
+    background: var(--wa-color-surface-raised);
+    border: none;
+}
+
+/* #region Prism Light Theme Tokens */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+    color: #008000;
+}
+
+.token.punctuation {
+    color: #3b3b3b;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.inserted {
+    color: #098658;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.deleted {
+    color: #a31515;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #3b3b3b;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+    color: #0000ff;
+}
+
+.token.function,
+.token.class-name {
+    color: #267f99;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+    color: #ee0000;
+}
+/* #endregion */
+
+/* wa-details code blocks (collapsible code snippets) */
+.code-details::part(header) {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.code-details::part(body) {
+    padding: 0;
+    background: var(--wa-color-neutral-20);
+}
+
+.code-details .code-block {
+    background: var(--wa-color-neutral-20);
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.code-details .code-block pre,
+.code-details .code-block code {
+    background: var(--wa-color-neutral-20);
+    border: none;
+}
+
+.wa-dark .code-block {
+    background: var(--wa-color-neutral-20);
+    border: none;
+    color: var(--wa-color-neutral-100, #f1f3f5);
+}
+
+.wa-dark .code-block code {
+    background: var(--wa-color-neutral-20);
+    border: none;
+}
+
+/* #region Prism VS Code Dark+ Theme Tokens */
+.wa-dark .token.comment,
+.wa-dark .token.prolog,
+.wa-dark .token.doctype,
+.wa-dark .token.cdata {
+    color: #6a9955;
+}
+
+.wa-dark .token.punctuation {
+    color: #d4d4d4;
+}
+
+.wa-dark .token.property,
+.wa-dark .token.tag,
+.wa-dark .token.boolean,
+.wa-dark .token.number,
+.wa-dark .token.constant,
+.wa-dark .token.symbol,
+.wa-dark .token.inserted {
+    color: #b5cea8;
+}
+
+.wa-dark .token.selector,
+.wa-dark .token.attr-name,
+.wa-dark .token.string,
+.wa-dark .token.char,
+.wa-dark .token.builtin,
+.wa-dark .token.deleted {
+    color: #ce9178;
+}
+
+.wa-dark .token.operator,
+.wa-dark .token.entity,
+.wa-dark .token.url,
+.language-css .token.string,
+.style .token.string {
+    color: #d4d4d4;
+    background: transparent;
+}
+
+.wa-dark .token.atrule,
+.wa-dark .token.attr-value,
+.wa-dark .token.keyword {
+    color: #569cd6;
+}
+
+.wa-dark .token.function,
+.wa-dark .token.class-name {
+    color: #dcdcaa;
+}
+
+.wa-dark .token.regex,
+.wa-dark .token.important,
+.wa-dark .token.variable {
+    color: #d16969;
+}
+
+.wa-dark .token.important,
+.wa-dark .token.bold {
+    font-weight: bold;
+}
+
+.wa-dark .token.italic {
+    font-style: italic;
+}
+
+.wa-dark .token.entity {
+    cursor: help;
+}
+/* #endregion */
+
+
+/* aside snippet code styles */
+.aside-snippet-code {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    overflow-x: auto;
+}
+
+.aside-snippet-code pre,
+.aside-snippet-code code {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+/* #region wa-comparison code overlay fix */
+wa-comparison {
+    border-radius: var(--wa-border-radius-s, 0.5rem);
+    overflow: hidden;
+}
+
+wa-comparison [slot="before"],
+wa-comparison [slot="after"] {
+    display: block;
+    height: 100%;
+}
+
+wa-comparison .code-block {
+    background: var(--wa-color-neutral-50, #f8f9fa);
+    height: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+    border-radius: 0;
+    border: none;
+    margin: 0;
+}
+
+wa-comparison .code-block pre,
+wa-comparison .code-block code {
+    height: 100%;
+}
+
+.wa-dark wa-comparison .code-block {
+    background: var(--wa-color-neutral-900, #1a1d21);
+}
+/* #endregion */
+
+/* #region aside compact snippets */
+.getting-started-aside .aside-snippet {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wa-spacing-small, 0.5rem);
+}
+
+.getting-started-aside .aside-snippet + .aside-snippet {
+    padding-top: var(--wa-spacing-medium, 1rem);
+    border-top: 1px solid var(--wa-color-neutral-200, #dee2e6);
+}
+
+.getting-started-aside .aside-snippet-label {
+    color: var(--wa-color-neutral-600, #6c757d);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.wa-dark .getting-started-aside .aside-snippet + .aside-snippet {
+    border-top-color: var(--wa-color-neutral-700, #495057);
+}
+
+.getting-started-aside .aside-snippet-code {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    overflow-x: auto;
+}
+
+.getting-started-aside .aside-snippet-code pre,
+.getting-started-aside .aside-snippet-code code {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+.wa-dark .getting-started-aside .aside-snippet-label {
+    color: var(--wa-color-neutral-400, #adb5bd);
+}
+/* #endregion */
+
+} /* end @layer wa-utils (code blocks + clipboard + comparison + aside) */
+
+/* #region patterns file explorer */
+wa-zoomable-frame:has(+ .file-explorer) {
+    min-block-size: 400px;
+    margin-block-end: var(--wa-content-spacing);
+    border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    border-radius: var(--wa-border-radius-l);
+
+    &::part(controls) {
+        border-radius: var(--wa-border-radius-m);
+    }
+}
+
+.file-explorer {
+    display: grid;
+    grid-template-columns: 30ch 1fr;
+    block-size: 60vh;
+    max-inline-size: 100%;
+    border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    border-radius: var(--wa-border-radius-l);
+    overflow: hidden;
+    position: relative;
+
+    wa-tree {
+        position: sticky;
+        inset-block-start: 0;
+        overflow-y: auto;
+        block-size: 100%;
+        padding-block: var(--wa-space-m);
+        background-color: var(--wa-color-surface-lowered);
+        border-inline-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+        border-start-start-radius: inherit;
+        border-end-start-radius: inherit;
+
+        wa-tree-item {
+            &::part(item) {
+                cursor: pointer;
+            }
+
+            &::part(label) {
+                font-size: var(--wa-font-size-s);
+                display: block;
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            &:state(selected)::part(item) {
+                background-color: var(--wa-color-neutral-fill-normal);
+            }
+        }
+    }
+
+    .code-canvas {
+        overflow-x: auto;
+
+        &,
+        .file-code,
+        .code-example,
+        .code-example-source,
+        pre,
+        code.example {
+            block-size: 100%;
+        }
+    }
+}
+
+/* wa-details: brand border + larger summary text */
+#annotation-driven wa-details {
+    border: var(--wa-border-width-s) solid var(--wa-color-brand);
+    border-radius: var(--wa-border-radius-m);
+    overflow: hidden;
+
+    &::part(header) {
+        font-size: var(--wa-font-size-l);
+    }
+}
+
+/* file-explorer inside a wa-details fills the available width */
+wa-details .file-explorer {
+    block-size: 50vh;
+    border: none;
+    border-radius: 0;
+}
+
+wa-details .file-explorer .code-canvas {
+    overflow-y: auto;
+}
+
+/* Java source code block inside wa-details */
+wa-details .code-block {
+    border-radius: 0;
+    border: none;
+    border-block-start: var(--wa-border-width-s) solid var(--wa-color-neutral-border-quiet);
+    margin: 0;
+}
+/* #endregion */

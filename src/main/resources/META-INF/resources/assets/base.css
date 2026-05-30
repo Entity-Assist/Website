@@ -1,0 +1,102 @@
+main {
+    padding-top: 0 !important;
+}
+
+.logo-svg {
+    --logo-text-fill: var(--wa-color-text-normal);
+}
+pre {
+    padding: 0!important;
+    margin: 0!important;
+}
+
+.logo-jwebmp-svg {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: var(--brand-jwebmp-green, #10b981);
+    vertical-align: middle;
+}
+.logo-guicedee-svg {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: var(--wa-color-brand-normal, var(--wa-color-brand));
+    vertical-align: middle;
+}
+.logo-guicedee {
+    color: var(--wa-color-brand-normal, var(--wa-color-brand));
+}
+.logo-jwebmp {
+    color: var(--brand-jwebmp-green, #10b981);
+    font-size: 2rem;
+}
+.logo-entity-assist {
+    color: var(--brand-entity-assist-blue);
+    font-size: 2rem;
+}
+.logo-activity-master {
+    color: var(--brand-activity-master-purple);
+    font-size: 1.5rem;
+}
+
+.logo-svg.awesome-logo {
+    --logo-text-fill: var(--wa-color-text-normal);
+}
+
+a {
+    color: var(--wa-color-text-quiet);
+    text-decoration: inherit !important;
+    -webkit-text-decoration: inherit !important;;
+    text-decoration-thickness: inherit !important;
+    text-underline-offset: inherit !important;
+
+    > * {
+        color: revert;
+    }
+}
+
+code.appearance-plain {
+    background: transparent;
+    border: none;
+}
+
+:not(pre) > code[class*=language-], pre[class*=language-] {
+    background-color: var(--wa-color-surface-raised) !important;
+}
+code{
+    padding: 0.125em 0.25em;
+    font-family: var(--wa-font-family-code);
+    font-size: var(--wa-font-size-smaller);
+    font-weight: var(--wa-font-weight-code);
+    background-color: var(--wa-color-surface-raised) !important;
+    border-radius: var(--wa-border-radius-s);
+}
+
+a.appearance-plain {
+    --wa-color-text-link: var(--wa-color-text-normal);
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+ul,
+ol {
+    &.appearance-plain {
+        list-style: none;
+        padding-inline-start: 0;
+
+        li {
+            padding-inline-start: 0;
+        }
+    }
+}
+

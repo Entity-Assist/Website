@@ -111,7 +111,7 @@
         background-color: var(--nav-products-bg, var(--wa-color-surface-lowered));
     }
 
-    /* Narrow (≤ 80ch): compact header with logo */
+    /* Narrow (â‰¤ 80ch): compact header with logo */
     @container header (inline-size <= 80ch) {
         .header-nav,
         .header-toolbar,
@@ -279,7 +279,7 @@ wa-tree-item:has(> a)::part(item) {
     cursor: pointer;
 }
 
-/* #region hero tags — distinct brand-harmonious palette
+/* #region hero tags â€” distinct brand-harmonious palette
    Brand = brand color (pink/magenta)
    Success = teal/cyan
    Neutral = slate/grey with brand tint
@@ -367,9 +367,10 @@ wa-card::part(footer) {
     flex: 0 0 auto;
 }
 
-/* Built-on attribution links */
-.built-on-links a {
-    text-decoration: none;
+/* Shared Built on, primary navigation and aside links. */
+:is(.built-on-links, .site-navigation-links) a {
+    text-decoration: none !important;
+    color: var(--wa-color-brand-normal);
     padding: var(--wa-space-3xs) var(--wa-space-xs);
     border-radius: var(--wa-border-radius-m);
     transition:
@@ -382,31 +383,31 @@ wa-card::part(footer) {
     gap: var(--wa-space-2xs);
 }
 
-.built-on-links a wa-icon,
-.built-on-links a .built-on-logo {
+:is(.built-on-links, .site-navigation-links) a wa-icon,
+:is(.built-on-links, .site-navigation-links) a .built-on-logo {
     font-size: var(--wa-font-size-m);
     opacity: 0.7;
     transition: opacity var(--wa-transition-fast) var(--wa-transition-easing);
 }
 
-.built-on-links a:hover wa-icon,
-.built-on-links a:hover .built-on-logo {
+:is(.built-on-links, .site-navigation-links) a:hover wa-icon,
+:is(.built-on-links, .site-navigation-links) a:hover .built-on-logo {
     opacity: 1;
 }
 
-.built-on-links a:hover {
+:is(.built-on-links, .site-navigation-links) a:hover {
     background-color: color-mix(in srgb, var(--wa-color-brand-normal) 12%, transparent);
     color: var(--wa-color-brand-dark) !important;
     transform: translateX(var(--wa-space-3xs));
     box-shadow: inset 2px 0 0 var(--wa-color-brand-normal);
 }
 
-.built-on-links a:active {
+:is(.built-on-links, .site-navigation-links) a:active {
     background-color: color-mix(in srgb, var(--wa-color-brand-normal) 20%, transparent);
     transform: translateX(var(--wa-space-3xs)) scale(0.98);
 }
 
-.wa-dark .built-on-links a:hover {
+.wa-dark :is(.built-on-links, .site-navigation-links) a:hover {
     background-color: color-mix(in srgb, var(--wa-color-brand-normal) 18%, transparent);
     color: var(--wa-color-brand-light) !important;
 }
@@ -452,3 +453,58 @@ wa-input:focus-within {
     --wa-input-border-color-focus: var(--wa-color-brand);
     --wa-input-focus-ring-color: color-mix(in srgb, var(--wa-color-brand) 30%, transparent);
 }
+
+/* Entity Assist customer site */
+.website-content { display: block; padding: clamp(1rem, 3vw, 2.5rem); margin-inline: auto; min-width: 0; }
+.ea-hero { padding-block: clamp(1.5rem, 4vw, 4rem); max-width: 62rem; }
+.ea-hero h1 { font-size: clamp(2.3rem, 4.5vw, 4.3rem); line-height: 1.08; letter-spacing: -.035em; max-width: 19ch; }
+.ea-hero p { max-width: 65ch; }
+.hero-eyebrow { color: var(--brand-entity-assist-blue); letter-spacing: .1em; font-weight: 700; }
+.content-section { margin-block: clamp(2rem, 5vw, 4rem); scroll-margin-top: 6rem; }
+.content-section p { max-width: 75ch; }
+.ea-code { display: block; min-width: 0; overflow-x: auto; border: 1px solid var(--wa-color-surface-border); border-radius: var(--wa-border-radius-l); padding: 1rem; background: var(--wa-color-surface-raised); }
+.ea-code pre { overflow-x: auto; }
+wa-page.no-aside { --aside-width: 0px; }
+wa-page.no-aside > [slot='aside'] { display: none; }
+.page-aside { display: block; position: sticky; top: 5rem; padding: 1.5rem; min-width: 12rem; }
+.page-aside ul { list-style: none; padding: 0; }
+.page-aside li { margin: 0; }
+.page-aside li > a { display: flex; }
+.primary-navigation { padding: var(--wa-space-m); }
+.site-navigation-links a.nav-active {
+    background-color: color-mix(in srgb, var(--wa-color-brand-normal) 12%, transparent);
+    box-shadow: inset 2px 0 0 var(--wa-color-brand-normal);
+    font-weight: var(--wa-font-weight-semibold, 600);
+}
+:is(.built-on-links, .site-navigation-links) a wa-icon { flex: 0 0 auto; color: inherit; }
+@media (prefers-reduced-motion: reduce) {
+    :is(.built-on-links, .site-navigation-links) a { transition: none; transform: none; }
+}
+.site-footer { padding: 1.5rem; font-size: .85rem; color: var(--wa-color-text-quiet); border-top: 1px solid var(--wa-color-surface-border); }
+a:focus-visible { outline: 2px solid var(--wa-color-brand-normal); outline-offset: 4px; }
+@media (max-width: 700px) { .website-content { padding: 1rem; } .ea-hero h1 { font-size: 2.5rem; } }
+
+/* Keep Entity Assist's blue identity across WebAwesome theme palettes. */
+body { --wa-color-brand-fill-normal: #246bb2; --wa-color-brand-fill-loud: #195a9c; --wa-color-brand-on-normal: white; --wa-color-brand-on-loud: white; }
+.nav-products .product { color: var(--wa-color-text-normal); }
+.nav-products .product-active { color: var(--brand-entity-assist-blue); }
+.nav-products wa-icon { flex: 0 0 auto; }
+.content-section { background: none; }
+.page-aside { max-height: calc(100dvh - 6rem); overflow-y: auto; }
+@media (max-width: 700px) {
+    .nav-products .product:not(.product-active) { display: none; }
+    .nav-products-primary { flex-wrap: wrap; }
+    .nav-products-secondary { margin-inline-start: auto; }
+}
+
+body { --wa-color-brand: #246bb2; --wa-color-brand-normal: #246bb2; --wa-color-brand-on-quiet: #246bb2; --wa-color-brand-border-normal: #418fde; }
+body.wa-dark { --wa-color-brand-on-quiet: #8bc5ff; --wa-color-brand-normal: #8bc5ff; }
+.website-content .content-section::before { content: none; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+wa-page[view='mobile']::part(main-content) { padding: 0; }
+wa-page[view='mobile'] .website-content { padding-inline: 1rem; }
+
+.website-content p { overflow-wrap: anywhere; }
+.website-content .ea-code { box-sizing: border-box; max-width: 100%; }
+.website-content .ea-code pre { max-width: 100%; }
+wa-page[view='mobile'] > main { padding: 0; min-width: 0; }

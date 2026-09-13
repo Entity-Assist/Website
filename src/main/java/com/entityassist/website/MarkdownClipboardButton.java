@@ -28,9 +28,10 @@ public class MarkdownClipboardButton extends DivSimple<MarkdownClipboardButton> 
         btn.setSize(com.jwebmp.webawesome.components.Size.Small);
         btn.addAttribute("(click)", "onCopy()");
         btn.addClass("markdown-copy-btn");
+        btn.addAttribute("aria-label", "Copy code");
 
         var icon = new WaIcon<>();
-        icon.addAttribute("[name]", "copied ? 'check-lg' : 'clipboard'");
+        icon.addAttribute("[src]", "copied ? '/icons/check.svg' : '/icons/clipboard.svg'");
         btn.add(icon);
 
         add(btn);

@@ -1,0 +1,10 @@
+**
+!Dockerfile
+!nginx.conf
+!target/
+!target/webroot/
+!target/webroot/ea-website/
+!target/webroot/ea-website/dist/
+!target/webroot/ea-website/dist/jwebmp/
+!target/webroot/ea-website/dist/jwebmp/browser/
+!target/webroot/ea-website/dist/jwebmp/browser/**

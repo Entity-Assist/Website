@@ -1,0 +1,25 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent><groupId>com.guicedee</groupId><artifactId>parent</artifactId><version>2.2.2</version><relativePath/></parent>
+    <groupId>com.entityassist.examples</groupId><artifactId>query-guide</artifactId><version>1.0.0-SNAPSHOT</version>
+    <properties><maven.deploy.skip>true</maven.deploy.skip><central.publishing.skip>true</central.publishing.skip><ignore.moditect>true</ignore.moditect></properties>
+    <dependencies>
+        <dependency><groupId>com.entityassist</groupId><artifactId>entity-assist-reactive</artifactId><version>2.0.1-SNAPSHOT</version></dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>../src/main/resources/query-guide</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>3.14.1</version>
+                <configuration>
+                    <release>25</release>
+                    <annotationProcessorPaths combine.self="override">
+                        <path><groupId>org.hibernate.orm</groupId><artifactId>hibernate-processor</artifactId><version>${maven.hibernate.version}</version></path>
+                    </annotationProcessorPaths>
+                    <annotationProcessors combine.self="override"><annotationProcessor>org.hibernate.processor.HibernateProcessor</annotationProcessor></annotationProcessors>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

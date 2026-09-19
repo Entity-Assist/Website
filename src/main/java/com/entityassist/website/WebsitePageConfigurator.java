@@ -40,7 +40,7 @@ public class WebsitePageConfigurator implements IPageConfigurator<WebsitePageCon
 
     private IPage<?> configureOptions(IPage<?> page) {
         WebAwesomePageConfigurator.setWaKitCode("6ea54e8336d3409b");
-        WebAwesomePageConfigurator.setBasePath("https://ka-p.webawesome.com/kit/6ea54e8336d3409b/webawesome@3.11.0/");
+        WebAwesomePageConfigurator.setBasePath("https://ka-p.webawesome.com/kit/6ea54e8336d3409b/webawesome@3.13.0/");
         FontAwesome5ProPageConfigurator.setKitCode("");
         Page<?> p = (Page<?>) page;
         p.getOptions().setDescription("Entity Assist is a fluent reactive persistence toolkit for Java. Explore entity mapping, queries, transactions and integration with GuicedEE and Hibernate Reactive.");

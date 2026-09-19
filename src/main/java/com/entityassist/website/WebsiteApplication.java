@@ -17,7 +17,7 @@ public class WebsiteApplication extends NGApplication<WebsiteApplication>
 								//I set them for you -- these come from web awesome and font awesome
 							// which I opened in the browser
         WebAwesomePageConfigurator.setWaKitCode("6ea54e8336d3409b");
-        WebAwesomePageConfigurator.setBasePath("https://ka-p.webawesome.com/kit/6ea54e8336d3409b/webawesome@3.11.0/");
+        WebAwesomePageConfigurator.setBasePath("https://ka-p.webawesome.com/kit/6ea54e8336d3409b/webawesome@3.13.0/");
         FontAwesome5ProPageConfigurator.setKitCode("");
     }
 

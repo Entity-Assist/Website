@@ -18,10 +18,10 @@
         <ignore.moditect>true</ignore.moditect>
         <flatten.pom>false</flatten.pom>
         <jwebmp.version>2.0.3-SNAPSHOT</jwebmp.version>
-        <guicedee.version>2.3.0</guicedee.version>
+        <guicedee.version>2.4.0</guicedee.version>
 
         <maven.compiler.release>25</maven.compiler.release>
-        <lombok.version>1.18.46</lombok.version>
+        <lombok.version>1.18.48</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
 
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
@@ -171,7 +171,7 @@
                     <dependency>
                         <groupId>org.ow2.asm</groupId>
                         <artifactId>asm</artifactId>
-                        <version>9.10.1</version>
+                        <version>9.11</version>
                     </dependency>
                     <dependency>
                         <groupId>org.projectlombok</groupId>
